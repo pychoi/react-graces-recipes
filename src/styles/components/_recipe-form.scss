@@ -1,0 +1,41 @@
+/* ---------------------------------------------------------------------
+ Recipe Form styles
+------------------------------------------------------------------------ */
+.recipe-form-label {
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.category-checkbox {
+    text-transform: capitalize;
+}
+
+.submit-button {
+    background-color: #fff;
+    border: 1px solid #333;
+    border-radius: 0;
+    font-size: 14px;
+    margin-top: 50px;
+    padding: 10px 24px;
+    text-transform: uppercase;
+}
+
+.submit-button:hover {
+    background-color: #333; 
+    color: #fff;
+}
+
+.recipe-form .ql-editor {
+    min-height: 150px;
+    font-size: 16px;
+}
+
+.recipe-form .ql-editor ol, 
+.recipe-form .ql-editor ul {
+    padding-left: 0;
+}
+
+.recipe-form .form-control {
+    font-size: 16px;
+}

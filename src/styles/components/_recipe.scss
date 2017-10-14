@@ -1,0 +1,63 @@
+/* ---------------------------------------------------------------------
+ Recipe Styles
+------------------------------------------------------------------------ */
+.recipe-title {
+  margin-bottom: 20px;
+  margin-top: 10px;
+  font-family: "Amatic SC", cursive;
+  font-size: 38px;
+}
+
+.recipe-sectionTitle {
+  margin-bottom: 15px;
+  font-family: "Amatic SC", cursive;
+  font-size: 30px;
+}
+
+.source {
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.tags-container {
+  margin-top: 20px;
+
+  .categories {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
+  .category-tag {
+    font-size: 14px;
+    margin-right: 15px;
+    text-transform: capitalize;
+  }
+}
+
+.ingredients {
+  margin-top: 25px;
+
+  ul {
+    margin-left: 30px;
+    list-style: circle;
+
+    li {
+      line-height: 1.3;
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.instructions {
+  margin-top: 30px;
+
+  ol {
+    margin-left: 20px;
+    list-style: decimal;
+
+    li {
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+  }
+}
