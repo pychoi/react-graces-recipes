@@ -14,7 +14,10 @@ router.put('/', function(req, res) {
     "categories": req.body.categories
   }
   Model.update({ _id: req.body._id }, updatedRecipe, function(err, data) {
-    if (err) console.log(err);
+    if (err) {
+      console.log(err);
+      res.status(500).end();
+    }
     res.send(data);
   });
 });

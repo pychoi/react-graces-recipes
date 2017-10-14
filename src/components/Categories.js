@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Row, Col, Alert } from 'react-bootstrap';
 
 import * as ApiServices from '../services/ApiServices';
 import Header from './Header';
@@ -10,7 +10,8 @@ class Categories extends Component {
   constructor (props) {
     super(props);
     this.state = { 
-      categories: []
+      categories: [],
+      error: false
     };
 
     this.getCategories = this.getCategories.bind(this);
@@ -23,9 +24,12 @@ class Categories extends Component {
   }
 
   getCategories () {
-    ApiServices.getCategories().then(res => {
-      this.extractGroupData(res);
-    });
+    ApiServices.getCategories()
+      .then(res => this.extractGroupData(res))
+      .catch(err => {
+        console.log(err);
+        this.setState({ error: true });
+      });
   }
 
   extractGroupData (data) {
@@ -74,6 +78,7 @@ class Categories extends Component {
     return (
       <main>
         <Header authed={this.props.authed}/>
+        { this.state.error && <Alert bsStyle="danger" className="text-center">Error retrieving categories!</Alert>}
         <Grid className="content-body">
           <Row>
             <Col xs={12} sm={10} smOffset={1} md={8} mdOffset={2}>

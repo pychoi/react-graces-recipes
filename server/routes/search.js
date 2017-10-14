@@ -18,7 +18,10 @@ router.get('/', function(req, res) {
 
 router.get('/id', function(req, res) {
   Model.findById(req.query.query, function (err, data) {
-    if (err) console.log(err);
+    if (err) {
+      console.log(err);
+      res.status(500).end();
+    }
     res.send(data);
   });
 });

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Row, Col, Alert } from 'react-bootstrap';
 
 import getQueryString from '../utils/helpers';
 
@@ -14,7 +14,8 @@ class SearchResults extends Component {
     this.state = {
       results: [],
       query: '',
-      loading: false
+      loading: false,
+      error: false
     };
 
     this.getSearchTerm = this.getSearchTerm.bind(this);
@@ -29,9 +30,12 @@ class SearchResults extends Component {
   }
 
   getSearchResults (searchTerm) {
-    return ApiServices.searchRecipes(searchTerm).then(data => {
-      this.setState({ results: data });
-    });
+    return ApiServices.searchRecipes(searchTerm)
+      .then(res => this.setState({ results: res }))
+      .catch(err => {
+        console.log(err);
+        this.setState({ error: true });
+      });
   }
 
   getSearchTerm () {
@@ -58,6 +62,7 @@ class SearchResults extends Component {
       return (
         <main>
           <Header />
+          { this.state.error && <Alert bsStyle="danger" className="text-center">Error searching recipes!</Alert> }
           <Grid className="content-body">
             <Row>
               <Col xs={12} sm={10} smOffset={1} md={8} mdOffset={2}>

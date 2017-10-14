@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Parser from 'html-react-parser';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Row, Col, Alert } from 'react-bootstrap';
 
 import getQueryString from '../utils/helpers';
 import * as ApiServices from '../services/ApiServices';
@@ -20,7 +20,8 @@ class Recipe extends Component {
         ingredients: '',
         instructions: '',
         categories: []
-      }
+      },
+      error: false
     };
   }
 
@@ -29,9 +30,12 @@ class Recipe extends Component {
       const resultProps = this.props.history.location.state.result;
       this.setState({ recipe: resultProps });
     } else {
-      ApiServices.getRecipeById(getQueryString('id')).then(data => {
-        this.setState({ recipe: data });
-      });
+      ApiServices.getRecipeById(getQueryString('id'))
+        .then(data => this.setState({ recipe: data }))
+        .catch(err => {
+          console.log(err);
+          this.setState({ error: true });
+        });
     }
   }
 
@@ -53,6 +57,7 @@ class Recipe extends Component {
     return (
       <main>
         <Header />
+        { this.state.error && <Alert bsStyle="danger" className="text-center">Error Retrieving Recipe!</Alert> }
         <Grid className="content-body">
           <Row>
             <Col xs={12} sm={10} smOffset={1} md={8} mdOffset={2}>

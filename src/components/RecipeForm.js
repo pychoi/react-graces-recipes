@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router';
-import { Grid, Row, Col, FormGroup, ControlLabel, FormControl, Checkbox, Button} from 'react-bootstrap';
+import { Grid, Row, Col, FormGroup, ControlLabel, FormControl, Checkbox, Button, Alert} from 'react-bootstrap';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
@@ -37,7 +37,9 @@ class RecipeForm extends Component {
         categories: []
       },
       presetCat: [],
-      redirect: false
+      redirect: false,
+      savingError: false,
+      getCatError: false
     };
     this.recipe = {};
     this.categories = [];
@@ -64,6 +66,9 @@ class RecipeForm extends Component {
   getCategories () {
     ApiServices.getCategories().then(data => {
       this.setState({ presetCat: data });
+    }).catch(err => {
+      console.log(err);
+      this.setState({ getCatError: true });
     });
   } 
 
@@ -73,11 +78,17 @@ class RecipeForm extends Component {
       ApiServices.editRecipe(this.state.recipe).then(data => {
         this.recipe = this.state.recipe;
         this.setState({ redirect: true });
+      }).catch(err => {
+        console.log(err);
+        this.setState({ savingError: true });
       });
     } else {
       ApiServices.addRecipe(this.state.recipe).then(data => {
         this.recipe = data;
         this.setState({ redirect: true });
+      }).catch(err => {
+        console.log(err);
+        this.setState({ savingError: true });
       });
     }
   }
@@ -137,6 +148,8 @@ class RecipeForm extends Component {
     return (
       <main>
         <Grid className="content-body">
+          { this.state.savingError && <Alert bsStyle="danger" className="text-center">Error Saving Recipe!</Alert> }
+          { this.state.getCatError && <Alert bsStyle="danger" className="text-center">Error Retrieving Categories!</Alert> }
           <Row>
             <Col xs={12} sm={10} smOffset={1} md={8} mdOffset={2}>
               <h1 className="hdg-1">Add/Edit Recipe</h1>

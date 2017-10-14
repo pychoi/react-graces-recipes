@@ -17,7 +17,7 @@ router.post('/', function(req, res) {
   newRecipe.save(function(err, data) {
     if (err) {
       console.log(err);
-      res.send('Server Error');
+      res.status(500).end();
     }
     res.send(data);
   });

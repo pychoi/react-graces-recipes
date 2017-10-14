@@ -1,31 +1,30 @@
 export function searchRecipes (searchTerm) {
   return fetch(`/search?query=${searchTerm}`)
     .then(response => {
-        if (response.status !== 200) {
-          console.log(`Error searching recipes. Status Code: ${response.status}`);
-          return;
-        }
-        return response.json();
+      if (!response.ok){
+        throw Error(response.status);
       }
-    )
-    .catch(err => {
-      console.log('Fetch Error :-S', err);
-    });
+      return response.json();
+    }
+  ).catch(err => {
+    console.log('Fetch Error :-S', err);
+    throw Error(err);
+  });
 }
 
 export function getRecipeById (id) {
   return fetch(`/search/id?query=${id}`)
     .then(response => {
-        if (response.status !== 200) {
-          console.log(`Error searching recipes. Status Code: ${response.status}`);
-          return;
-        }
-        return response.json();
+      if (!response.ok) {
+        throw Error(response.status);
       }
-    )
-    .catch(err => {
-      console.log('Fetch Error :-S', err);
-    });
+      return response.json();
+    }
+  )
+  .catch(err => {
+    console.log('Fetch Error :-S', err);
+    throw Error(err);
+  });
 }
 
 export function addRecipe (recipe) {
@@ -36,13 +35,13 @@ export function addRecipe (recipe) {
     },
     body: JSON.stringify(recipe)
   }).then(response => {
-    if (response.status !== 200) {
-      console.log(`Error adding recipe. Status Code: ${response.status}`);
-      return;
+    if (!response.ok) {
+      throw Error(response.status);
     }
     return response.json();
   }).catch(err => {
     console.log('Add Recipe Error', err);
+    throw Error(err);
   });
 }
 
@@ -54,13 +53,13 @@ export function editRecipe (recipe) {
     },
     body: JSON.stringify(recipe)
   }).then(response => {
-    if (response.status !== 200) {
-      console.log(`Error adding recipe. Status Code: ${response.status}`);
-      return;
+    if (!response.ok) {
+      throw Error(response.status);
     }
     return response.json();
   }).catch(err => {
-    console.log('Add Recipe Error', err);
+    console.log('Edit Recipe Error', err);
+    throw Error(err);
   });
 }
 
@@ -72,5 +71,8 @@ export function getCategories () {
       throw Error(response.status);
     }
     return response.json();
-  }).catch(err => err);
+  }).catch(err => {
+    console.log('Get Categories Error', err);
+    throw Error(err);
+  });
 }
