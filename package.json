@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack -d --config webpack.dev.js && node server/app.js",
-    "prod": "NODE_ENV=production webpack --config webpack.prod.js"
+    "prod": "NODE_ENV=production webpack --config webpack.prod.js",
+    "start": "webpack --config webpack.prod.js && node server/app.js"
   },
   "keywords": [],
   "author": "",

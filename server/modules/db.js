@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const mongoURI = 'mongodb://localhost:27017/recipes';
+const mongoURI = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/recipes';
 const MongoDB = mongoose.connect(mongoURI).connection;
 
 MongoDB.on('error', function(err){
