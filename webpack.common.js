@@ -15,7 +15,7 @@ module.exports = {
     path: __dirname + '/server/dist'
   },
   plugins: [
-    new CleanWebpackPlugin(['dist']),
+    new CleanWebpackPlugin(['server/dist']),
     new HtmlWebpackPlugin({
         template: 'index.template.html'
     }),
