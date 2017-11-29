@@ -147,9 +147,9 @@ class RecipeForm extends Component {
 
     return (
       <main>
+        { this.state.savingError && <Alert bsStyle="danger" className="text-center">Error Saving Recipe!</Alert> }
+        { this.state.getCatError && <Alert bsStyle="danger" className="text-center">Error Retrieving Categories!</Alert> }
         <Grid className="content-body">
-          { this.state.savingError && <Alert bsStyle="danger" className="text-center">Error Saving Recipe!</Alert> }
-          { this.state.getCatError && <Alert bsStyle="danger" className="text-center">Error Retrieving Categories!</Alert> }
           <Row>
             <Col xs={12} sm={10} smOffset={1} md={8} mdOffset={2}>
               <h1 className="hdg-1">Add/Edit Recipe</h1>
@@ -167,7 +167,7 @@ class RecipeForm extends Component {
                   <ControlLabel className="recipe-form-label">Source</ControlLabel>
                   <FormControl
                     type="text"
-                    placeholder="Source"
+                    placeholder="http://www.example.com"
                     name="source"
                     value={this.state.recipe.source}
                     onChange={this.handleSourceChange} />
